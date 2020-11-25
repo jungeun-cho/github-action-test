@@ -31,7 +31,7 @@
   "examples": {
     "filePath": "examples",
     "titles": {
-      "test": "Calendar App"
+      "example00-basic": "Calendar App"
     },
 
     "globalErrorLogVariable": "errorLogs"
