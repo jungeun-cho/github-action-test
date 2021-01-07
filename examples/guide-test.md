@@ -205,6 +205,10 @@ import { BarChart } from '@toast-ui/chart';
 const chart = new BarChart({el, data, options});
 ```
 
+#### 콤보 차트 생성
+
+3.x 버전에서는 콤보 차트를 만들어 주기 위해 Chart.co
+
 ### 테마 적용 방식
 3.x 버전에서는 `registerPlugin`으로 테마를 등록하고 옵션에 테마명을 입력하여 사용하였다. 4.0 버전에서는 옵션에 바로 테마를 정의하는 방식으로 새롭게 변경되었다. 훨씬 더 직관적이고 다양한 테마 스타일을 적용할 수 있다.
 
@@ -487,20 +491,22 @@ chart.on('resetZoom', () => {/* */});
 | `'zoom'` | zoom 발생 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
 | `'resetZoom'` | zoom 초기화 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
 
+### 차트 지원
 
+3.x 버전에서는 Map 차트가 포함되었지만 4.0 버전부터는 포함되어 있지 않고, 새로운 **TOAST UI Map Chart** 로 대체될 예정이다. 3.x PieDonut 콤보
+
+| 차트 타입 | 설명 |
+| --- | --- |
+| Map 차트 | 새로운 **TOAST UI Map Chart**로 대체 예정 |
+| PieDonut 차트 | 개선된 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md)로 대체 |
 ## 제거된 기능
 
 ### 1. Bower 지원 중단
 
 차트 4.0 버전부터는 [Bower](https://bower.io/)를 지원하지 않는다. Bower 지원 중단과 함께 깃헙 리포지터리에서 `production` 브랜치도 제거되었다. 기존에 `production` 브랜치의 `dist` 폴더에서 번들 파일을 직접 가져와 사용했던 경우 주의해야 한다. 노드 환경에서 개발을 권장하나, 이전과 같이 Bower를 사용하던 방식으로 개발하고 싶은 경우 CDN을 사용하면 된다.
 
-### 2. 제거된 API
-#### 옵션 제거
-| 차트 타입 | 옵션명 |
-| --- | --- |
-| 모든 차트 | `legend.maxWidth` |
-| Pie 차트 | `series.startAngle`, `series.endAngle`, `series.showLegend`, `series.labelAlign` |
-| Bar, Column 차트 | `series.colorByPoint`, `series.stackType` |
+### 2. 제거된 API 목록
+마지막으로, 차트 4.0 버전에서 제거된 API를 정리한 목록이다.
 
 #### 메소드 제거
 | 타입 | 메소드명 |
@@ -510,13 +516,3 @@ chart.on('resetZoom', () => {/* */});
 
 #### 커스텀 이벤트
 * `afterShowTooltip`, `beforeHideTooltip`, `beforeShowTooltip`
-
-### 3. 차트
-
-| 차트 타입 | 설명 |
-| --- | --- |
-| Map 차트 | 새로운 **TOAST UI Map Chart**로 대체 예정 |
-| PieDonut 차트 | 개선된 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md)로 대체 |
-
-
-
