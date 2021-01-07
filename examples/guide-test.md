@@ -14,12 +14,11 @@ TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으
   * [툴팁 적용 방식](#툴팁-적용-방식)
   * [축 관련 옵션](#축-관련-옵션)
   * [Pie 차트 시리즈 옵션](#Pie-차트-시리즈-옵션)
-  * [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#Nested-Pie-차트)
+  * [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#nestedpie-차트-사용-방식구-pie-donut-콤보-차트)
   * [그 외](#그-외)
 * [제거된 기능](#제거된-기능)
   1. [Bower 지원 중단](#1.-Bower-지원-중단)
   2. [제거된 API](#2.-제거된-API)
-  3. [차트](#3.-맵-차트)
 
 ## 변경 사항
 ### 1. 차트 사용 방식
@@ -442,7 +441,7 @@ const options = {
 ```
 > [v4.x 파이 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-pie.md)
 
-### [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#Nested-Pie-차트)
+### NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)
 
 ### 그 외
 
@@ -522,13 +521,15 @@ chart.on('resetZoom', () => {/* */});
 | `'zoom'` | zoom 발생 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
 | `'resetZoom'` | zoom 초기화 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
 
-### 차트 지원
+#### 차트 지원
 
 3.x 버전에서는 Map 차트가 포함되었지만 4.0 버전부터는 포함되어 있지 않고, 새로운 **TOAST UI Map Chart** 로 대체될 예정이다.
 
 | 차트 타입 | 설명 |
 | --- | --- |
 | Map 차트 | 새로운 **TOAST UI Map Chart**로 대체 예정 |
+
+## 제거된 기능
 
 ### 1. Bower 지원 중단
 
