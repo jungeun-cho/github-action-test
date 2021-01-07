@@ -4,7 +4,6 @@
 
 TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으로 차트가 개발되었으며, 모든 의존성을 제거하고 트리 쉐이킹을 지원하여 사용자에게 가벼운 개발 환경을 제공한다. 업데이트 시 주의해야 할 사항들이 많으므로 마이그레이션 가이드의 전체 내용을 숙지하길 바란다. 목차는 다음과 같으며, 실제 적용 시에는 '변경 사항' 항목의 내용을 순서대로 진행하길 권장한다.
 
-
 ## 목차
 
 - [변경 사항](#변경-사항)
@@ -15,7 +14,7 @@ TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으
   * [툴팁 적용 방식](#툴팁-적용-방식)
   * [축 관련 옵션](#축-관련-옵션)
   * [Pie 차트 시리즈 옵션](#Pie-차트-시리즈-옵션)
-  * [이름 변경](#이름-변경)
+  * [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#Nested-Pie-차트)
   * [그 외](#그-외)
 * [제거된 기능](#제거된-기능)
   1. [Bower 지원 중단](#1.-Bower-지원-중단)
@@ -205,9 +204,38 @@ import { BarChart } from '@toast-ui/chart';
 const chart = new BarChart({el, data, options});
 ```
 
-#### 콤보 차트 생성
+#### 차트 이름
+차트 4.0 버전에서는 정적 함수를 사용하여 차트를 생성할 때 콤보 차트를 포함하여 몇 개의 차트들이 이름이 변경되었다. 다음은 3.x 버전과 4.x 버전의 차트 생성 함수명을 정리한 표이다.
 
-3.x 버전에서는 콤보 차트를 만들어 주기 위해 Chart.co
+**일반 차트**
+
+| v3.x | v4.0 - 정적 함수 | v4.0 - 생성자 함수 | 이름 변경 여부 |
+| --- | --- | --- | --- |
+| barChart | barChart | BarChart |  |
+| columnChart | columnChart | ColumnChart |  |
+| bulletChart | bulletChart | BulletChart |  |
+| boxplotChart | boxPlotChart | BoxPlotChart | Y |
+| lineChart | lineChart | LineChart |  |
+| areaChart | areaChart | AreaChart |  |
+| heatmapChart | heatmapChart | HeatmapChart |  |
+| treemapChart | treemapChart | TreemapChart |  |
+| bubbleChart | bubbleChart | BubbleChart |  |
+| scatterChart | scatterChart | ScatterChart |  |
+| radialChart | radarChart | RadarChart |  |
+| pieChart | pieChart | PieChart |  |
+
+**콤보 차트**
+
+3.x 버전에서 콤보 차트를 만들어 주기 위해서는 정적 함수 `comboChart`를 사용했다. 어떤 시리즈가 사용되고 어떤 차트인지 알 수 있는 방법이 데이터와 옵션을 통해서였다. 4.0 버전에서는 지원하는 콤보 차트의 이름을 명확히 하였다.
+
+| v3.x | v4.0 - 정적 함수 | v4.0 - 생성자 함수 | 이름 변경 여부 |
+| --- | --- | --- | --- |
+| comboChart | nestedPieChart | NestedPieChart | Y |
+| comboChart | columnLineChart | ColumnLineChart | Y |
+| comboChart | lineAreaChart | LineAreaChart | Y |
+| comboChart | lineScatterChart | lineScatterChart | Y |
+
+NestedPieChart를 제외한 나머지 콤보 차트는 3.x 버전에서의 데이터와 사용 옵션이 같다. NestedPieChart는 [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#Nested-Pie-차트) 섹션에서 자세히 설명한다.
 
 ### 테마 적용 방식
 3.x 버전에서는 `registerPlugin`으로 테마를 등록하고 옵션에 테마명을 입력하여 사용하였다. 4.0 버전에서는 옵션에 바로 테마를 정의하는 방식으로 새롭게 변경되었다. 훨씬 더 직관적이고 다양한 테마 스타일을 적용할 수 있다.
@@ -414,7 +442,11 @@ const options = {
 ```
 > [v4.x 파이 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-pie.md)
 
-### 이름 변경
+### [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#Nested-Pie-차트)
+
+### 그 외
+
+#### 이름 변경
 동작은 v3.x와 같지만 4.0 버전에서 이름이 변경된 옵션, 메소드, 커스텀 이벤트는 다음과 같다.
 
 **옵션**
@@ -438,11 +470,10 @@ const options = {
 | --- | --- | --- |
 | `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
 | `'selectLegend'` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
-### 그 외
-
 #### `chart.width`와 `chart.height` 옵션에 `'auto'` 타입 추가
 `auto`로 설정해주면 `window.resize` 이벤트 리스너가 등록되며, 차트 컨테이너의 크기가 변경되면 자동으로 컨테이너 크기에 맞춰 다시 렌더링한다.
-#### 레이아웃 적용
+
+#### 레이아웃 설정
 플롯, 축, 범례
 
 * plot.width, plot.height 설정
@@ -493,13 +524,11 @@ chart.on('resetZoom', () => {/* */});
 
 ### 차트 지원
 
-3.x 버전에서는 Map 차트가 포함되었지만 4.0 버전부터는 포함되어 있지 않고, 새로운 **TOAST UI Map Chart** 로 대체될 예정이다. 3.x PieDonut 콤보
+3.x 버전에서는 Map 차트가 포함되었지만 4.0 버전부터는 포함되어 있지 않고, 새로운 **TOAST UI Map Chart** 로 대체될 예정이다.
 
 | 차트 타입 | 설명 |
 | --- | --- |
 | Map 차트 | 새로운 **TOAST UI Map Chart**로 대체 예정 |
-| PieDonut 차트 | 개선된 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md)로 대체 |
-## 제거된 기능
 
 ### 1. Bower 지원 중단
 
