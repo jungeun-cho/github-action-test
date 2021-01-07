@@ -203,7 +203,7 @@ import { BarChart } from '@toast-ui/chart';
 const chart = new BarChart({el, data, options});
 ```
 
-#### 차트 이름
+#### 차트 이름 변경
 차트 4.0 버전에서는 정적 함수를 사용하여 차트를 생성할 때 콤보 차트를 포함하여 몇 개의 차트들이 이름이 변경되었다. 다음은 3.x 버전과 4.x 버전의 차트 생성 함수명을 정리한 표이다.
 
 * 일반 차트
@@ -451,36 +451,39 @@ const options = {
 
 * 옵션
 
-| v3.x | v4.0 | 설명 |
-| --- | --- | --- |
-| `series.allowSelect` | `series.selectable` | 시리즈 선택 기능 사용 여부 |
-| `series.shifting` | `series.shift` | shift 사용 여부 |
-| `chartExportMenu` | `exportMenu` | 내보내기 옵션 |
+  | v3.x | v4.0 | 설명 |
+  | --- | --- | --- |
+  | `series.allowSelect` | `series.selectable` | 시리즈 선택 기능 사용 여부 |
+  | `series.shifting` | `series.shift` | shift 사용 여부 |
+  | `chartExportMenu` | `exportMenu` | 내보내기 옵션 |
 
 * 메소드
 
-| v3.x | v4.0 | 설명 |
-| --- | --- | --- |
-| `showSeriesLabel` | `showSeriesDataLabel` | 데이터 라벨 표시 |
-| `hideSeriesLabel` | `hideSeriesDataLabel` | 데이터 라벨 숨기기 |
+  | v3.x | v4.0 | 설명 |
+  | --- | --- | --- |
+  | `showSeriesLabel` | `showSeriesDataLabel` | 데이터 라벨 표시 |
+  | `hideSeriesLabel` | `hideSeriesDataLabel` | 데이터 라벨 숨기기 |
 
 * 커스텀 이벤트
 
-| v3.x | v4.0 | 설명 |
-| --- | --- | --- |
-| `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
-| `'selectLegend'` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
+  | v3.x | v4.0 | 설명 |
+  | --- | --- | --- |
+  | `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
+  | `'selectLegend'` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
 
 #### `chart.width`와 `chart.height` 옵션에 `'auto'` 타입 추가
-`auto`로 설정해주면 `window.resize` 이벤트 리스너가 등록되며, 차트 컨테이너의 크기가 변경되면 자동으로 컨테이너 크기에 맞춰 다시 렌더링한다.
+3.x 버전에서는 `chart.width`와 `chart.height` 옵션을 필수적으로 숫자값을 입력해 주어야한다. 4.0 버전에서는 이 옵션을 입력해주지 않으면 컨테이너 크기에 맞춰 차트가 렌더링 된다. 숫자 외 `auto`로 설정해주면 차트 내부적으로 `window.resize` 이벤트 리스너가 등록되며, 차트 컨테이너의 크기가 변경되면 자동으로 컨테이너 크기에 맞춰 다시 렌더링한다.
+
+
+#### responsive 옵션
+4.x 버전에서는 차트의 크기에 따라 옵션을 다르게 적용할 수 있는 새로운 `responsive` 옵션이 추가되었다. 자세한 사용법은 [responsive 옵션](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-responsive-options.md) 가이드를 참고한다.
+
 
 #### 레이아웃 설정
-플롯, 축, 범례
+X축, Y축, 플롯 영역의 크기 및 범례의 너비를 지정할 수 있다. 여러 차트를 사용하는 경우 각 컴포넌트의 너비를 고정하고 싶을 때 유용하게 사용할 수 있다. 자세한 사용법은 [레이아웃 설정](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-layout-options.md) 가이드를 참고한다.
 
-* plot.width, plot.height 설정
-* Axis.width, plot.height 설정
 
-#### `responsive` 옵션
+
 #### 새로운 인스턴스 메서드
 차트 4.0 버전에서는 사용자 편의를 위한 새로운 인스턴스 메소드를 제공한다. 추가된 메소드 목록은 다음과 같다.
 
