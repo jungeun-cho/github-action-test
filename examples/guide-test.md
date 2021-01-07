@@ -13,8 +13,8 @@ TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으
   * [테마 적용 방식](#테마-적용-방식)
   * [데이터 라벨 적용 방식](#데이터-라벨-적용-방식)
   * [툴팁 적용 방식](#툴팁-적용-방식)
-  * [Pie 차트 시리즈 옵션](#Pie-차트-시리즈-옵션)
   * [축 관련 옵션](#축-관련-옵션)
+  * [Pie 차트 시리즈 옵션](#Pie-차트-시리즈-옵션)
   * [이름 변경](#이름-변경)
   * [그 외](#그-외)
 * [제거된 기능](#제거된-기능)
@@ -334,10 +334,6 @@ const options = {
 
 #### `tooltip.grouped` -> 시리즈 별 `eventDetectType`
 
-### Pie 차트 시리즈 옵션
-
-
-
 ### 축 관련 옵션
 #### tickInterval, labelInterval -> tick.interval, label.interval
 
@@ -394,16 +390,16 @@ const options = {
 | `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
 | `'selectLegend'` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
 
+### Pie 차트 시리즈 옵션
 ### 그 외
 
-#### chart.width, chart.height -> 'auto' 타입 추가
+#### `chart.width`와 `chart.height` 옵션에 `'auto'` 타입 추가
+`auto`로 설정해주면 `window.resize` 이벤트 리스너가 등록되며, 차트 컨테이너의 크기가 변경되면, 자동으로 컨테이너 크기에 맞춰 다시 렌더링한다.
 #### 레이아웃 적용
 플롯, 축, 범례
 
-#### plot.width, plot.height 설정
-
-
-#### Axis.width, plot.height 설정
+* plot.width, plot.height 설정
+* Axis.width, plot.height 설정
 
 #### `responsive` 옵션
 #### 새로운 인스턴스 메서드
@@ -435,22 +431,10 @@ chart.hideTooltip();
 ```js
 const chart = Chart.lineChart({el, data, options});
 
-chart.on('hoverSeries', (info) => {
-  /* */
-});
-
-chart.on('unhoverSeries', (info) => {
-  /* */
-});
-
-chart.on('zoom', (dataRange) => {
-  /* */
-});
-
-chart.on('resetZoom', () => {
-  /* */
-});
-
+chart.on('hoverSeries', (info) => {/* */});
+chart.on('unhoverSeries', (info) => {/* */});
+chart.on('zoom', (dataRange) => {/* */});
+chart.on('resetZoom', () => {/* */});
 ```
 
 | 커스텀 이벤트명 | 설명 | 차트 타입 |
@@ -487,7 +471,7 @@ chart.on('resetZoom', () => {
 
 | 차트 타입 | 설명 |
 | --- | --- |
-| Map 차트 | 고도화 된 **TOAST UI Map Chart**로 새롭게 등장될 예정 |
+| Map 차트 | 새로운 **TOAST UI Map Chart**로 대체 예정 |
 | PieDonut 차트 | 개선된 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md)로 대체 |
 
 
