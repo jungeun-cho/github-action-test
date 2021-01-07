@@ -10,11 +10,11 @@ TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으
   * [차트 사용 방식](#차트-사용-방식)
   * [차트 생성 방식](#차트-생성-방식)
   * [테마 적용 방식](#테마-적용-방식)
-  * [데이터 라벨 적용 방식](#데이터-라벨-적용-방식)
   * [툴팁 적용 방식](#툴팁-적용-방식)
   * [축 관련 옵션](#축-관련-옵션)
+  * [데이터 라벨 적용 방식](#데이터-라벨-적용-방식)
   * [Pie 차트 시리즈 옵션](#Pie-차트-시리즈-옵션)
-  * [NestedPie 차트 사용 방식(구 Pie&Donut 콤보 차트)](#nestedpie-차트-사용-방식구-pie&donut-콤보-차트)
+  * [NestedPie 차트 사용 방식(구 Pie&Donut 콤보 차트)](#nestedpie-차트-사용-방식구-piedonut-콤보-차트)
   * [그 외](#그-외)
 * [제거된 기능](#제거된-기능)
   1. [Bower 지원 중단](#1.-Bower-지원-중단)
@@ -309,6 +309,165 @@ const options = {
 | Area, Line 차트 | `series.pointWidth` | `theme.series.lineWidth` |
 | Bar, Column 차트 | `series.barWidth` | `theme.series.barWidth` |
 
+
+### 툴팁 적용 방식
+4.0 버전에서 `tooltip` 옵션은 사용자 친화적이고 좀 더 편리한 기능을 제공한다.
+
+#### 툴팁 위치 개선
+3.x 버전에서는  `tooltip.align` 옵션을 제공하여 툴팁이 항상 같은 위치에 나타났다. 그러나 이는 툴팁이 차트 영역 바깥으로 나갈 수 있어 비효율 적이다. 4.0 버전에서는 이를 개선하여 사용자가 align을 지정하지 않아도 툴팁의 좌표값을 계산하여 유연하게 표시되도록 한다.
+
+**v3.x**
+```js
+const options = {
+  tooltip: {
+    align: 'center top'
+  }
+};
+```
+
+**v4.0**
+툴팁 위치 좌표 자동 계산
+
+#### 데이터 값 출력 형식 변경
+3.x 버전에서 툴팁 데이터 값의 기본 포맷은 `chart.format` 옵션에서 정해준 형식을 사용하였고, `tooltip.suffix` 옵션을 사용해 값 뒤에 문자열을 추가해주었다. 4.0 버전에서는 새로운 `tooltip.formatter` 옵션을 제공하여 사용자가 툴팁에서 표시할 값의 형식을 지정하고 필요에 따라 접미사와 접두어를 자유롭게 추가할 수 있다.
+
+**v3.x**
+
+```js
+const options = {
+  chart: { format: '1,000' }
+  tooltip: { suffix:  '℃' },
+};
+```
+
+
+**v4.0**
+
+```js
+const options = {
+  tooltip: {
+    formatter: (value) => {
+      const temp = Number(value.toFixed(2));
+      let icon = '☀️';
+      if (temp < 0) {
+        icon = '❄️';
+      } else if (temp > 25) {
+        icon = '🔥';
+      }
+
+      return `${icon} ${value} ℃`;
+    },
+  },
+};
+```
+
+#### 템플릿 적용 방식
+
+3.x 버전에서는 툴팁에 템플릿을 설정할 때 넘겨받는 매개변수 데이터가 매우 제한적이었다. 4.0에서는 툴팁으로 보여주어야 할 데이터 모델과 차트 내부에서 정의된 기본 툴팁 템플릿(`header`, `body`) 그리고 테마 정보까지 함께 넘겨주어 사용자가 템플릿을 작성하는데 편의를 제공한다.
+
+**v3.x**
+```js
+const options = {
+  tooltip: {
+    template: (category, item, categoryTimestamp) => {
+      const head = `<div>${category}</div>`;
+      const body = `<div>${item.value}:${item.legend}</div>`;
+      return `${head}${body}`;
+    }
+  }
+};
+```
+
+**v4.0**
+```js
+const options = {
+  tooltip: {
+    template: (model, defaultTooltipTemplate, theme) => {
+      const { body, header } = defaultTooltipTemplate;
+      const { background } = theme;
+
+      return `
+        <div style="
+          background: ${background};
+          width: 140px;
+          padding: 0 5px;
+          text-align: center;
+          color: white;
+          ">
+            <p>🎊 ${model.category} 🎊</p>
+            ${body}
+        </div>
+      `;
+    }
+  }
+};
+```
+
+#### 차트 데이터에 대한 마우스 이벤트 탐지 방식
+3.x 버전에서는 `tooltip.grouped` 옵션을 `true`로 설정하면 각 시리즈에서 마우스 좌표를 기준으로 같은 카테고리 값을 가지는 모든 데이터를 그룹화하여 툴팁에 표시하였다. 4.0 버전에서는 새로운 `series.eventDetectType` 옵션으로 변경되며, 툴팁을 나타낼 때 발생하는 마우스 오버와 시리즈를 선택할 때 발생하는 마우스 클릭 시 데이터를 탐지하는 방법을 정의한다. 시리즈 별로 사용할 수 있는 탐지 방법을 아래 표로 정리하였다.
+
+| 차트 타입 | 탐지 타입 | 기본값 |
+| --- | --- | --- |
+| Line, Area 차트 | `'near'`, `'nearest'`, `'grouped'`, `'point'` | `'nearest'` |
+| Bar, Column, Bullet, BoxPlot | `'grouped'`, `'point'` | `'point'` |
+| ColumnLine 차트  | `'grouped'`, `'point'` | `'grouped'` |
+
+
+### 축 관련 옵션
+#### tickInterval, labelInterval -> tick.interval, label.interval, scale 옵션
+3.x 버전의 `tickInterval`, `labelInterval` 옵션의 기능을 개선하여 4.0 버전에서는 `tick.interval`, `label.interval`로 변경되고 새로운 `scale.stepSize` 옵션이 추가되었다.  `scale.stepSize` 옵션을 통해 틱과 라벨이 그려지는 간격의 크기를 지정할 수 있으며, 사용자는 좀 더 정교하게 축의 눈금과 라벨 간격을 제어할 수 있다.
+
+**v3.x**
+```js
+const options = {
+  xAxis: {
+    tickInterval: 'auto',
+    labelInterval: 3
+  }
+}
+```
+
+**v4.0**
+```js
+const options = {
+  xAxis: {
+    tick: {
+      interval: 3
+    },
+    label: {
+      interval: 6
+    },
+    scale: {
+      stepSize: 'auto'
+    }
+  }
+}
+```
+
+#### xAxis 라벨 날짜 형식 변경
+
+3.x 버전에서는 X축에 날짜 형식의 라벨을 표시하려면 `type: 'datetime'`과 `dateFormat` 옵션을 지정해주어야 했다. 4.0 버전에서 날짜 형식을 위한 옵션은 `date`로 변경되었다.
+
+**v3.x**
+```js
+const options = {
+  xAxis: {
+    type: 'datetime',
+    dateFormat: 'YYYY-MM-DD'
+  }
+};
+```
+
+**v4.x**
+```ts
+const options = {
+  xAxis: {
+    date: { format: 'YYYY-MM-DD' } // or true
+  }
+};
+```
+
+
 ### 데이터 라벨 적용 방식
 차트 3.x에서는 시리즈에 값을 표현할 때 옵션이 매우 제한적이며 스타일을 변경할 수 없었다. 차트 4.0 버전에서는 사용자가 데이터 라벨의 위치를 지정하고 출력 형식을 지정하며, 다양하게 스타일링 할 수 있도록 옵션을 구체화하였다.
 
@@ -358,44 +517,6 @@ const options = {
 * [LineArea 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineArea.md#datalabels)
 * [LineScatter 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineScatter.md#datalabels)
 
-
-### 툴팁 적용 방식
-
-#### `tooltip.suffix` -> `tooltip.formatter`
-#### `tooltip.template` 옵션
-
-#### `tooltip.grouped` -> 시리즈 별 `eventDetectType`
-
-### 축 관련 옵션
-#### tickInterval, labelInterval -> tick.interval, label.interval
-
-#### min, max -> scale.min, scale.max, scale.stepSize
-#### xAxis 날짜 형식
-
-**v3.x**
-```js
-const options = {
-  xAxis: {
-    type: 'datetime',
-    dateFormat: string
-  }
-};
-```
-
-**v4.x**
-```ts
-chart 4
-const options = {
-  xAxis: {
-    date: boolean | { format: string }
-  }
-};
-```
-
-#### chart.format, xAxis.prefix, xAxis.suffix, yAxis.prefix, yAxis.suffix -> formatter
-
-
-#### labelMargin, maxWidth -> width, height
 
 ### Pie 차트 시리즈 옵션
 
@@ -576,6 +697,10 @@ NestedPie 차트의 자세한 설명은 [NestedPie 차트](https://github.com/nh
 
   | v3.x | v4.0 | 설명 |
   | --- | --- | --- |
+  | `xAxis.min` | `xAxis.scale.min` | X축 최소값 설정 |
+  | `xAxis.max` | `xAxis.scale.max` | X축 최댓값 설정 |
+  | `yAxis.min` | `yAxis.scale.min` | Y축 최소값 설정 |
+  | `yAxis.max` | `yAxis.scale.max` | Y축 최댓값 설정 |
   | `series.allowSelect` | `series.selectable` | 시리즈 선택 기능 사용 여부 |
   | `series.shifting` | `series.shift` | shift 사용 여부 |
   | `chartExportMenu` | `exportMenu` | 내보내기 옵션 |
