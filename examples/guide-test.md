@@ -7,7 +7,7 @@ TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으
 ## 목차
 
 - [변경 사항](#변경-사항)
-  1. [차트 사용 방식](#차트-사용-방식)
+  1. [차트 사용 방식](#1-차트-사용-방식)
   2. [차트 생성 방식](#차트-생성-방식)
   3. [테마 적용 방식](#테마-적용-방식)
   4. [툴팁 적용 방식](#툴팁-적용-방식)
@@ -179,7 +179,7 @@ import '@toast-ui/chart/dist/toastui-chart.css';
 </body>
 ```
 
-### 차트 생성 방식
+### 2. 차트 생성 방식
 3.x 버전에서 차트를 생성하기 위해서는 정적 함수에 차트가 그려질 요소(`el`), 차트 데이터(`data`), 옵션을 매개변수에 차례로 넘겨주어 작성하였다.
 4.0 버전에서는 정적 함수를 사용하는 방법 외에도 생성자 함수를 통해 생성할 수 있으며, 매개변수는 요소, 데이터, 옵션을 **객체**로 넘겨주도록 변경되었다.
 
@@ -236,7 +236,7 @@ const chart = new BarChart({el, data, options});
 
 NestedPieChart를 제외한 나머지 콤보 차트는 3.x 버전에서의 데이터와 사용 옵션이 같다. NestedPieChart는 [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#Nested-Pie-차트) 섹션에서 자세히 설명한다.
 
-### 테마 적용 방식
+### 3. 테마 적용 방식
 3.x 버전에서는 `registerPlugin`으로 테마를 등록하고 옵션에 테마명을 입력하여 사용하였다. 4.0 버전에서는 옵션에 바로 테마를 정의하는 방식으로 새롭게 변경되었다. 훨씬 더 직관적이고 다양한 테마 스타일을 적용할 수 있다.
 
 **v3.x**
@@ -310,7 +310,7 @@ const options = {
 | Bar, Column 차트 | `series.barWidth` | `theme.series.barWidth` |
 
 
-### 툴팁 적용 방식
+### 4. 툴팁 적용 방식
 4.0 버전에서 `tooltip` 옵션은 사용자 친화적이고 좀 더 편리한 기능을 제공한다.
 
 #### 툴팁 위치 개선
@@ -413,8 +413,8 @@ const options = {
 | ColumnLine 차트  | `'grouped'`, `'point'` | `'grouped'` |
 
 
-### 축 관련 옵션
-#### tickInterval, labelInterval -> tick.interval, label.interval, scale 옵션
+### 5. 축 관련 옵션 변경
+#### 축 눈금 및 라벨 간격 조절
 3.x 버전의 `tickInterval`, `labelInterval` 옵션의 기능을 개선하여 4.0 버전에서는 `tick.interval`, `label.interval`로 변경되고 새로운 `scale.stepSize` 옵션이 추가되었다.  `scale.stepSize` 옵션을 통해 틱과 라벨이 그려지는 간격의 크기를 지정할 수 있으며, 사용자는 좀 더 정교하게 축의 눈금과 라벨 간격을 제어할 수 있다.
 
 **v3.x**
@@ -468,7 +468,7 @@ const options = {
 ```
 
 
-### 데이터 라벨 적용 방식
+### 6. 데이터 라벨 적용 방식
 차트 3.x에서는 시리즈에 값을 표현할 때 옵션이 매우 제한적이며 스타일을 변경할 수 없었다. 차트 4.0 버전에서는 사용자가 데이터 라벨의 위치를 지정하고 출력 형식을 지정하며, 다양하게 스타일링 할 수 있도록 옵션을 구체화하였다.
 
 **v3.x**
@@ -518,7 +518,7 @@ const options = {
 * [LineScatter 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineScatter.md#datalabels)
 
 
-### Pie 차트 시리즈 옵션
+### 7. Pie 차트 시리즈 옵션
 
 4.0 버전에서는 Pie 차트의 기능이 개선되고 옵션이 정리되었다. 3.x 버전에서는 `radiusRange` 옵션을 `%`를 포함한 문자열 타입으로만 설정할 수 있었다. 4.0 버전에서는 숫자 타입으로도 설정할 수 있으며 반지름이 절대값으로 계산된다. 또한 새로운 `clockwise` 옵션이 추가되었으며 시리즈가 그려지는 애니메이션 방향을 정할 수 있다. 3.x 버전의 `showLegend`, `labelAlign` 옵션은 4.0 버전의 `dataLabels` 옵션으로 통합되었다.
 
@@ -563,7 +563,7 @@ const options = {
 ```
 > [v4.0 Pie 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-pie.md)
 
-### NestedPie 차트 사용 방식(구 Pie&Donut 콤보 차트)
+### 8. NestedPie 차트 사용 방식(구 Pie&Donut 콤보 차트)
 
 3.x 버전에서 Pie & Donut 콤보 차트는 4.0 버전에서 NestedPie 차트로 변경되었다. 3.x 버전에서는 최대 표현할 수 있는 중첩된 파이 시리즈가 2개로 제한되었으며, 차트 데이터에 사용되는 시리즈 별칭도 `'pie1'`, `'pie2'`로 고정되어 사용되었다. 4.0 버전에서는 이러한 불편함을 개선하고 여러 개의 중첩된 파이 차트를 생성할 수 있게 되었으며, 필요에 따라 데이터를 그룹화 하여 보여줄 수 있다.
 
@@ -688,7 +688,7 @@ const data = {
 
 NestedPie 차트의 자세한 설명은 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md) 가이드를 참고한다.
 
-### 그 외
+### 9. 그 외
 
 #### 이름 변경
 동작은 v3.x와 같지만 4.0 버전에서 이름이 변경된 옵션, 메소드, 커스텀 이벤트는 다음과 같다.
