@@ -454,7 +454,7 @@ chart.on('resetZoom', () => {
 ```
 
 | 커스텀 이벤트명 | 설명 | 차트 타입 |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | `'hoverSeries'` | 시리즈 데이터에 마우스를 올릴 때 이벤트 발생 | 모든 차트 |
 | `'unhoverSeries'` | `hoverSeries` 이벤트 발생 후 마우스가 떠날 때 이벤트 발생 | 모든 차트 |
 | `'zoom'` | zoom 발생 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
@@ -468,23 +468,24 @@ chart.on('resetZoom', () => {
 차트 4.0 버전부터는 [Bower](https://bower.io/)를 지원하지 않는다. Bower 지원 중단과 함께 깃헙 리포지터리에서 `production` 브랜치도 제거되었다. 기존에 `production` 브랜치의 `dist` 폴더에서 번들 파일을 직접 가져와 사용했던 경우 주의해야 한다. 노드 환경에서 개발을 권장하나, 이전과 같이 Bower를 사용하던 방식으로 개발하고 싶은 경우 CDN을 사용하면 된다.
 
 ### 2. 제거된 API
-#### 메소드 제거
-| 타입 | 메소드명 |
-| --- | --- |
-| 정적 메소드 | `registerPlugin`, `registerTheme`, `registerMap` |
-| 인스턴스 메소드 |  `setTooltipAlign`, `resetTooltipAlign`, `resetTooltipOffset`, `resetTooltipPosition` |
-#### 커스텀 이벤트
-* `afterShowTooltip`, `beforeHideTooltip`, `beforeShowTooltip`
-
 #### 옵션 제거
 | 차트 타입 | 옵션명 |
 | --- | --- |
 | 모든 차트 | `legend.maxWidth` |
 | Bar, Column 차트 | `series.colorByPoint`, `series.stackType` |
 
+#### 메소드 제거
+| 타입 | 메소드명 |
+| --- | --- |
+| 정적 메소드 | `registerPlugin`, `registerTheme`, `registerMap` |
+| 인스턴스 메소드 |  `setTooltipAlign`, `resetTooltipAlign`, `resetTooltipOffset`, `resetTooltipPosition` |
+
+#### 커스텀 이벤트
+* `afterShowTooltip`, `beforeHideTooltip`, `beforeShowTooltip`
+
 ### 3. 차트
 
-| 차트명 | 설명 |
+| 차트 타입 | 설명 |
 | --- | --- |
 | Map 차트 | 고도화 된 **TOAST UI Map Chart**로 새롭게 등장될 예정 |
 | PieDonut 차트 | 개선된 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md)로 대체 |
