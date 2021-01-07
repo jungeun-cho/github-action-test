@@ -208,31 +208,31 @@ const chart = new BarChart({el, data, options});
 
 * 일반 차트
 
-| v3.x | v4.0 - 정적 함수 | v4.0 - 생성자 함수 | 이름 변경 여부 |
-| --- | --- | --- | --- |
-| barChart | barChart | BarChart |  |
-| columnChart | columnChart | ColumnChart |  |
-| bulletChart | bulletChart | BulletChart |  |
-| boxplotChart | boxPlotChart | BoxPlotChart | Y |
-| lineChart | lineChart | LineChart |  |
-| areaChart | areaChart | AreaChart |  |
-| heatmapChart | heatmapChart | HeatmapChart |  |
-| treemapChart | treemapChart | TreemapChart |  |
-| bubbleChart | bubbleChart | BubbleChart |  |
-| scatterChart | scatterChart | ScatterChart |  |
-| radialChart | radarChart | RadarChart |  |
-| pieChart | pieChart | PieChart |  |
+  | v3.x | v4.0 - 정적 함수 | v4.0 - 생성자 함수 | 이름 변경 여부 |
+  | --- | --- | --- | --- |
+  | barChart | barChart | BarChart |  |
+  | columnChart | columnChart | ColumnChart |  |
+  | bulletChart | bulletChart | BulletChart |  |
+  | boxplotChart | boxPlotChart | BoxPlotChart | Y |
+  | lineChart | lineChart | LineChart |  |
+  | areaChart | areaChart | AreaChart |  |
+  | heatmapChart | heatmapChart | HeatmapChart |  |
+  | treemapChart | treemapChart | TreemapChart |  |
+  | bubbleChart | bubbleChart | BubbleChart |  |
+  | scatterChart | scatterChart | ScatterChart |  |
+  | radialChart | radarChart | RadarChart |  |
+  | pieChart | pieChart | PieChart |  |
 
 * 콤보 차트
 
-3.x 버전에서 콤보 차트를 만들어 주기 위해서는 정적 함수 `comboChart`를 사용했다. 어떤 시리즈가 사용되고 어떤 차트인지 알 수 있는 방법이 데이터와 옵션을 통해서였다. 4.0 버전에서는 지원하는 콤보 차트의 이름을 명확히 하였다.
+  3.x 버전에서 콤보 차트를 만들어 주기 위해서는 정적 함수 `comboChart`를 사용했다. 어떤 시리즈가 사용되고 어떤 차트인지 알 수 있는 방법이 데이터와 옵션을 통해서였다. 4.0 버전에서는 지원하는 콤보 차트의 이름을 명확히 하였다.
 
-| v3.x | v4.0 - 정적 함수 | v4.0 - 생성자 함수 | 이름 변경 여부 |
-| --- | --- | --- | --- |
-| comboChart | nestedPieChart | NestedPieChart | Y |
-| comboChart | columnLineChart | ColumnLineChart | Y |
-| comboChart | lineAreaChart | LineAreaChart | Y |
-| comboChart | lineScatterChart | lineScatterChart | Y |
+  | v3.x | v4.0 - 정적 함수 | v4.0 - 생성자 함수 | 이름 변경 여부 |
+  | --- | --- | --- | --- |
+  | comboChart | nestedPieChart | NestedPieChart | Y |
+  | comboChart | columnLineChart | ColumnLineChart | Y |
+  | comboChart | lineAreaChart | LineAreaChart | Y |
+  | comboChart | lineScatterChart | lineScatterChart | Y |
 
 NestedPieChart를 제외한 나머지 콤보 차트는 3.x 버전에서의 데이터와 사용 옵션이 같다. NestedPieChart는 [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#Nested-Pie-차트) 섹션에서 자세히 설명한다.
 
