@@ -14,7 +14,7 @@ TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으
   * [툴팁 적용 방식](#툴팁-적용-방식)
   * [축 관련 옵션](#축-관련-옵션)
   * [Pie 차트 시리즈 옵션](#Pie-차트-시리즈-옵션)
-  * [NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)](#nestedpie-차트-사용-방식구-pie-donut-콤보-차트)
+  * [NestedPie 차트 사용 방식(구 Pie&Donut 콤보 차트)](#nestedpie-차트-사용-방식구-pie&donut-콤보-차트)
   * [그 외](#그-외)
 * [제거된 기능](#제거된-기능)
   1. [Bower 지원 중단](#1.-Bower-지원-중단)
@@ -415,7 +415,7 @@ const options = {
   }
 };
 ```
-> [v3.x 파이 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/v3.11.2/docs/wiki/chart-types-pie.md)
+> [v3.x Pie 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/v3.11.2/docs/wiki/chart-types-pie.md)
 
 **v4.0**
 ```js
@@ -440,9 +440,132 @@ const options = {
   }
 };
 ```
-> [v4.x 파이 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-pie.md)
+> [v4.0 Pie 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-pie.md)
 
-### NestedPie 차트 사용 방식(구 Pie-Donut 콤보 차트)
+### NestedPie 차트 사용 방식(구 Pie&Donut 콤보 차트)
+
+3.x 버전에서 Pie & Donut 콤보 차트는 4.0 버전에서 NestedPie 차트로 변경되었다. 3.x 버전에서는 최대 표현할 수 있는 중첩된 파이 시리즈가 2개로 제한되었으며, 차트 데이터에 사용되는 시리즈 별칭도 `'pie1'`, `'pie2'`로 고정되어 사용되었다. 4.0 버전에서는 이러한 불편함을 개선하고 여러 개의 중첩된 파이 차트를 생성할 수 있게 되었으며, 필요에 따라 데이터를 그룹화 하여 보여줄 수 있다.
+
+**v3.x**
+```js
+const data = {
+  categories: ['Browser'],
+  seriesAlias: {
+    pie1: 'pie',
+    pie2: 'pie'
+  },
+  series: {
+    pie1: [/* */],
+    pie2: [/* */]
+  }
+};
+
+const options = {
+  series: {
+    pie1: {/* */},
+    pie2: {/* */}
+  }
+};
+
+Chart.combochart(el, data, options);
+```
+> [v3.x Pie-Donut 콤보 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/v3.11.2/docs/wiki/chart-types-pie-donut-combo.md)
+
+
+**v4.0**
+
+```js
+const data = {
+  series: [
+    {
+      name: 'browsers',
+      data: [/* */],
+    },
+    {
+      name: 'versions',
+      data: [/* */],
+    },
+    {
+      name: 'details',
+      data: [/* */],
+    }
+  ],
+};
+
+const options = {
+  series: {
+    browsers: {/* */},
+    versions: {/* */},
+    details: {/* */}
+  }
+};
+
+Chart.nestedPieChart({el, data, options});
+```
+
+`parentName`을 지정하여 데이터의 부모 시리즈를 설정해주면 그룹 데이터로 표현할 수 있다. `parentName`은 series 배열에서 이전 시리즈의 `name`(`series.data.name`) 값을 사용한다.
+
+```js
+const data = {
+  categories: ['A', 'B'],
+  series: [
+    {
+      name: 'browsers',
+      data: [
+        {
+          name: 'Chrome',
+          data: 50,
+        },
+        ...
+      ],
+    },
+    {
+      name: 'versions',
+      data: [
+        {
+          name: 'Chrome 64',
+          parentName: 'Chrome',
+          data: 40,
+        },
+        {
+          name: 'Chrome 63',
+          parentName: 'Chrome',
+          data: 10,
+        },
+        ...
+      ],
+    },
+    {
+      name: 'details',
+      data: [
+        {
+          name: 'Chrome 64 - 1',
+          parentName: 'Chrome 64',
+          data: 25,
+        },
+        {
+          name: 'Chrome 64 - 2',
+          parentName: 'Chrome 64',
+          data: 15,
+        },
+        {
+          name: 'Chrome 63 - 1',
+          parentName: 'Chrome 63',
+          data: 7,
+        },
+        {
+          name: 'Chrome 63 - 2',
+          parentName: 'Chrome 63',
+          data: 3,
+        },
+        ...
+      ],
+    },
+  ],
+};
+```
+
+NestedPie 차트의 자세한 설명은 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md) 가이드를 참고한다.
 
 ### 그 외
 
