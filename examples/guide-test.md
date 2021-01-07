@@ -11,12 +11,16 @@ TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으
   * [차트 사용 방식](#차트-사용-방식)
   * [차트 생성 방식](#차트-생성-방식)
   * [테마 적용 방식](#테마-적용-방식)
-  * [데이터 라벨 적용 방식](#)
+  * [데이터 라벨 적용 방식](#데이터-라벨-적용-방식)
+  * [툴팁 적용 방식](#툴팁-적용-방식)
+  * [Pie 차트 시리즈 옵션](#Pie-차트-시리즈-옵션)
+  * [축 관련 옵션](#축-관련-옵션)
+  * [이름 변경](#이름-변경)
   * [그 외](#그-외)
 * [제거된 기능](#제거된-기능)
   1. [Bower 지원 중단](#1.-Bower-지원-중단)
   2. [제거된 API](#2.-제거된-API)
-  3. [맵 차트](#3.-맵-차트)
+  3. [차트](#3.-맵-차트)
 
 ## 변경 사항
 ### 1. 차트 사용 방식
@@ -124,7 +128,7 @@ const chart = toastui.Chart.barChart(/* */);
 | babel-polyfill 포함 | `tui-chart-polyfill.js` | Y |
 
 **v4.0**
-                  |
+
 | 번들 종류 | 파일명 | 최소화 버전(`*.min`) 제공 여부 |
 | :--- | :--- | :--- |
 | 기본 | `toastui-chart.js` | Y |
@@ -177,9 +181,9 @@ import '@toast-ui/chart/dist/toastui-chart.css';
 </body>
 ```
 
-#### 차트 생성 방식
+### 차트 생성 방식
 3.x 버전에서 차트를 생성하기 위해서는 정적 함수에 차트가 그려질 요소(`el`), 차트 데이터(`data`), 옵션을 매개변수에 차례로 넘겨주어 작성하였다.
-4.0 버전에서는 정적 함수를 사용하는 방법 외에도 생성자 함수를 통해 생성할 수 있으며, 매개변수는 요소, 데이터, 옵션을 객체로 넘겨주도록 변경되었다.
+4.0 버전에서는 정적 함수를 사용하는 방법 외에도 생성자 함수를 통해 생성할 수 있으며, 매개변수는 요소, 데이터, 옵션을 **객체**로 넘겨주도록 변경되었다.
 
 **v3.x**
 ```js
@@ -202,7 +206,7 @@ const chart = new BarChart({el, data, options});
 ```
 
 ### 테마 적용 방식
-3.0 버전에서 `registerPlugin`으로 테마를 등록하고 옵션에 테마명을 입력하는 방식에서, 4.0 버전에서는 옵션에 바로 테마를 정의하는 방식으로 새롭게 변경되었다. 4.0 버전에서는 훨씬 더 직관적이고 다양한 테마 스타일을 적용할 수 있다.
+3.x 버전에서는 `registerPlugin`으로 테마를 등록하고 옵션에 테마명을 입력하여 사용하였다. 4.0 버전에서는 옵션에 바로 테마를 정의하는 방식으로 새롭게 변경되었다. 훨씬 더 직관적이고 다양한 테마 스타일을 적용할 수 있다.
 
 **v3.x**
 
@@ -244,9 +248,8 @@ const options = {
 };
 ```
 
-전역 스타일, 차트 제목, 축, 플롯, 범례, 툴팁, 내보내기 메뉴에 대한 테마는 [공통 테마 가이드]()에서 확인할 수 있으며, 시리즈에 대한 테마는 각 차트 별 가이드에서 확인할 수 있다.
+전역 스타일, 차트 제목, 축, 플롯, 범례, 툴팁, 내보내기 메뉴에 대한 테마는 [공통 컴포넌트 테마](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-theme.md)에서 확인할 수 있으며, 시리즈에 대한 테마는 각 차트 별 가이드에서 확인할 수 있다.
 
-* [공통 컴포넌트 테마](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-theme.md)
 * [Bar 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-bar.md#시리즈-theme)
 * [Column 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-column.md#시리즈-theme)
 * [Bullet 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-bullet.md#시리즈-theme)
@@ -264,7 +267,7 @@ const options = {
 * [LineArea 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineArea.md#시리즈-theme)
 * [LineScatter 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineScatter.md#시리즈-theme)
 
-4.0 버전에서는 툴팁과 내보내기 메뉴에 테마를 적용할 수 있으며, 시리즈의 데이터 라벨 테마도 적용할 수 있다.
+4.0 버전에서는 툴팁과 내보내기 메뉴에 테마를 적용할 수 있으며, 시리즈에서 데이터 라벨 테마도 적용할 수 있다.
 
 3.x 버전에서 `series` 옵션으로 지원하던 스타일 관련 속성은 4.0 버전에서 `theme` 속성에 포함되었다.
 
@@ -274,8 +277,8 @@ const options = {
 | Area, Line 차트 | `series.pointWidth` | `theme.series.lineWidth` |
 | Bar, Column 차트 | `series.barWidth` | `theme.series.barWidth` |
 
-### 데이터 라벨 사용
-차트 3.x에서는 시리즈에 값을 표현할 때 구현 제한이 많았다. 차트 4.0 버전에서는 사용자가 데이터 라벨의 위치를 지정하고 출력 형식을 지정하며, 다양하게 스타일링 할 수 있도록 옵션을 구체화하였다.
+### 데이터 라벨 적용 방식
+차트 3.x에서는 시리즈에 값을 표현할 때 옵션이 매우 제한적이며 스타일을 변경할 수 없었다. 차트 4.0 버전에서는 사용자가 데이터 라벨의 위치를 지정하고 출력 형식을 지정하며, 다양하게 스타일링 할 수 있도록 옵션을 구체화하였다.
 
 **v3.x**
 ```js
@@ -298,6 +301,11 @@ const options = {
       ...
       /* 차트 시리즈 별 데이터 라벨 옵션 */
     }
+  },
+  theme: {
+    series: {
+      dataLabels: {/* */}
+    }
   }
 };
 ```
@@ -318,30 +326,15 @@ const options = {
 * [LineArea 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineArea.md#datalabels)
 * [LineScatter 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineScatter.md#datalabels)
 
-### 레이아웃 적용
-플롯, 축, 범례
 
-#### plot.width, plot.height 설정
-
-
-#### Axis.width, plot.height 설정
-### 5. 툴팁 적용 방식
+### 툴팁 적용 방식
 
 #### `tooltip.suffix` -> `tooltip.formatter`
 #### `tooltip.template` 옵션
 
 #### `tooltip.grouped` -> 시리즈 별 `eventDetectType`
 
-### Pie 차트
-### PieDonut -> NestedPie
-
-### `responsive` 옵션
-
-
-### 변경된 옵션
-
-#### chart.width, chart.height -> 'auto' 타입 추가
-
+### Pie 차트 시리즈 옵션
 
 
 
@@ -376,55 +369,43 @@ const options = {
 
 #### labelMargin, maxWidth -> width, height
 
-### 네이밍 변경
-동작은 같은데 이름이 변경된 옵션은 다음과 같다.
+### 이름 변경
+동작은 v3.x와 같지만 4.0 버전에서 이름이 변경된 옵션, 메소드, 커스텀 이벤트는 다음과 같다.
 
-**v3.x**
-```js
-const options = {
-  series: {
-    allowSelect: true,
-    shifting: true,
-  },
-  chartExportMenu: {/* */}
-};
-```
+**옵션**
 
-**v4.0**
-```js
-const options = {
-  series: {
-    selectable: true,
-    shift: true
-  },
-  exportMenu: {/* */}
-};
-```
-
-// @TODO: 코드와 테이블 중 선택
 | v3.x | v4.0 | 설명 |
 | --- | --- | --- |
 | `series.allowSelect` | `series.selectable` | 시리즈 선택 기능 사용 여부 |
 | `series.shifting` | `series.shift` | shift 사용 여부 |
 | `chartExportMenu` | `exportMenu` | 내보내기 옵션 |
 
-
-동작은 같은데 이름이 변경된 인스턴스 메소드는 다음과 같다.
+**메소드**
 
 | v3.x | v4.0 | 설명 |
 | --- | --- | --- |
 | `showSeriesLabel` | `showSeriesDataLabel` | 데이터 라벨 표시 |
 | `hideSeriesLabel` | `hideSeriesDataLabel` | 데이터 라벨 숨기기 |
 
-
-동작은 같은데 이름이 변경된 커스텀 이벤트는 다음과 같다.
+**커스텀 이벤트**
 
 | v3.x | v4.0 | 설명 |
 | --- | --- | --- |
-| `changeCheckedLegends` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
-| `selectLegend` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
+| `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
+| `'selectLegend'` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
 
 ### 그 외
+
+#### chart.width, chart.height -> 'auto' 타입 추가
+#### 레이아웃 적용
+플롯, 축, 범례
+
+#### plot.width, plot.height 설정
+
+
+#### Axis.width, plot.height 설정
+
+#### `responsive` 옵션
 #### 새로운 인스턴스 메서드
 차트 4.0 버전에서는 사용자 편의를 위한 새로운 인스턴스 메소드를 제공한다. 추가된 메소드 목록은 다음과 같다.
 
@@ -479,6 +460,7 @@ chart.on('resetZoom', () => {
 | `'zoom'` | zoom 발생 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
 | `'resetZoom'` | zoom 초기화 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
 
+
 ## 제거된 기능
 
 ### 1. Bower 지원 중단
@@ -500,8 +482,12 @@ chart.on('resetZoom', () => {
 | 모든 차트 | `legend.maxWidth` |
 | Bar, Column 차트 | `series.colorByPoint`, `series.stackType` |
 
-### 3. 맵 차트
-* 고도화 된 TOAST UI Map Chart로 새롭게 등장될 예정이다.
+### 3. 차트
+
+| 차트명 | 설명 |
+| --- | --- |
+| Map 차트 | 고도화 된 **TOAST UI Map Chart**로 새롭게 등장될 예정 |
+| PieDonut 차트 | 개선된 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md)로 대체 |
 
 
 
