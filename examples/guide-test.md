@@ -206,7 +206,7 @@ const chart = new BarChart({el, data, options});
 #### 차트 이름
 차트 4.0 버전에서는 정적 함수를 사용하여 차트를 생성할 때 콤보 차트를 포함하여 몇 개의 차트들이 이름이 변경되었다. 다음은 3.x 버전과 4.x 버전의 차트 생성 함수명을 정리한 표이다.
 
-**일반 차트**
+* 일반 차트
 
 | v3.x | v4.0 - 정적 함수 | v4.0 - 생성자 함수 | 이름 변경 여부 |
 | --- | --- | --- | --- |
@@ -223,7 +223,7 @@ const chart = new BarChart({el, data, options});
 | radialChart | radarChart | RadarChart |  |
 | pieChart | pieChart | PieChart |  |
 
-**콤보 차트**
+* 콤보 차트
 
 3.x 버전에서 콤보 차트를 만들어 주기 위해서는 정적 함수 `comboChart`를 사용했다. 어떤 시리즈가 사용되고 어떤 차트인지 알 수 있는 방법이 데이터와 옵션을 통해서였다. 4.0 버전에서는 지원하는 콤보 차트의 이름을 명확히 하였다.
 
@@ -262,6 +262,9 @@ const options = {
 > 3.x 버전에서 지원하는 테마 속성은 [v3.x 테마 적용 방법](https://github.com/nhn/tui.chart/blob/v3.11.2/docs/wiki/theme.md)에서 확인할 수 있다.
 
 **v4.0**
+
+4.0 버전에서는 툴팁과 내보내기 메뉴에 테마를 적용할 수 있으며, 시리즈에서 데이터 라벨 테마도 적용할 수 있다.
+
 ```js
 const options = {
   ...
@@ -297,8 +300,6 @@ const options = {
 * [ColumnLine 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-columnLine.md#시리즈-theme)
 * [LineArea 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineArea.md#시리즈-theme)
 * [LineScatter 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-lineScatter.md#시리즈-theme)
-
-4.0 버전에서는 툴팁과 내보내기 메뉴에 테마를 적용할 수 있으며, 시리즈에서 데이터 라벨 테마도 적용할 수 있다.
 
 3.x 버전에서 `series` 옵션으로 지원하던 스타일 관련 속성은 4.0 버전에서 `theme` 속성에 포함되었다.
 
@@ -448,7 +449,7 @@ const options = {
 #### 이름 변경
 동작은 v3.x와 같지만 4.0 버전에서 이름이 변경된 옵션, 메소드, 커스텀 이벤트는 다음과 같다.
 
-**옵션**
+* 옵션
 
 | v3.x | v4.0 | 설명 |
 | --- | --- | --- |
@@ -456,14 +457,14 @@ const options = {
 | `series.shifting` | `series.shift` | shift 사용 여부 |
 | `chartExportMenu` | `exportMenu` | 내보내기 옵션 |
 
-**메소드**
+* 메소드
 
 | v3.x | v4.0 | 설명 |
 | --- | --- | --- |
 | `showSeriesLabel` | `showSeriesDataLabel` | 데이터 라벨 표시 |
 | `hideSeriesLabel` | `hideSeriesDataLabel` | 데이터 라벨 숨기기 |
 
-**커스텀 이벤트**
+* 커스텀 이벤트
 
 | v3.x | v4.0 | 설명 |
 | --- | --- | --- |
