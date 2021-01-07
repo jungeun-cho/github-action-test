@@ -470,6 +470,7 @@ const options = {
 | --- | --- | --- |
 | `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
 | `'selectLegend'` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
+
 #### `chart.width`와 `chart.height` 옵션에 `'auto'` 타입 추가
 `auto`로 설정해주면 `window.resize` 이벤트 리스너가 등록되며, 차트 컨테이너의 크기가 변경되면 자동으로 컨테이너 크기에 맞춰 다시 렌더링한다.
 
@@ -522,13 +523,13 @@ chart.on('resetZoom', () => {/* */});
 | `'zoom'` | zoom 발생 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
 | `'resetZoom'` | zoom 초기화 시 이벤트 발생 | Line, Area, LineArea, Treemap 차트 |
 
-#### 차트 지원
+#### Map 차트
 
-3.x 버전에서는 Map 차트가 포함되었지만 4.0 버전부터는 포함되어 있지 않고, 새로운 **TOAST UI Map Chart** 로 대체될 예정이다.
+3.x 버전에서는 Map 차트가 포함되었지만 4.0 버전에서는 새로운 **TOAST UI Map Chart** 로 대체될 예정이다.
 
-| 차트 타입 | 설명 |
+| v3.x | v4.0 |
 | --- | --- |
-| Map 차트 | 새로운 **TOAST UI Map Chart**로 대체 예정 |
+| TOAST UI Chart에 포함 | 새로운 **TOAST UI Map Chart**로 대체(예정) |
 
 ## 제거된 기능
 
@@ -539,7 +540,7 @@ chart.on('resetZoom', () => {/* */});
 ### 2. 제거된 API 목록
 마지막으로, 차트 4.0 버전에서 제거된 API를 정리한 목록이다.
 
-#### 메소드 제거
+#### 메소드
 | 타입 | 메소드명 |
 | --- | --- |
 | 정적 메소드 | `registerPlugin`, `registerTheme`, `registerMap` |
