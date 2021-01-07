@@ -365,6 +365,51 @@ const options = {
 
 #### labelMargin, maxWidth -> width, height
 
+### Pie 차트 시리즈 옵션
+
+4.0 버전에서는 Pie 차트의 기능이 개선되고 옵션이 정리되었다. 3.x 버전에서는 `radiusRange` 옵션을 `%`를 포함한 문자열 타입으로만 설정할 수 있었다. 4.0 버전에서는 숫자 타입으로도 설정할 수 있으며 반지름이 절대값으로 계산된다. 또한 새로운 `clockwise` 옵션이 추가되었으며 시리즈가 그려지는 애니메이션 방향을 정할 수 있다. 3.x 버전의 `showLegend`, `labelAlign` 옵션은 4.0 버전의 `dataLabels` 옵션으로 통합되었다.
+
+**v3.x**
+
+```js
+const options = {
+  series: {
+    radiusRange: ['60%', '100%']
+    startAngle: -90,
+    endAngle: 90,
+    showLabel: true,
+    showLegend: true,
+    labelAlign: 'outer'
+  }
+};
+```
+> [v3.x 파이 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/v3.11.2/docs/wiki/chart-types-pie.md)
+
+**v4.0**
+```js
+const options = {
+  series: {
+    radiusRange: {
+      inner: 120, // or '60%',
+      outer: 200  // or '100%'
+    },
+    angleRange: {
+      start: -90,
+      end: -90
+    },
+    clockwise: true,
+    dataLabels: {
+      visible: true,
+      pieSeriesName: {
+        visible: true,
+        anchor: 'outer',
+      }
+    }
+  }
+};
+```
+> [v4.x 파이 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-pie.md)
+
 ### 이름 변경
 동작은 v3.x와 같지만 4.0 버전에서 이름이 변경된 옵션, 메소드, 커스텀 이벤트는 다음과 같다.
 
@@ -389,12 +434,10 @@ const options = {
 | --- | --- | --- |
 | `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
 | `'selectLegend'` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
-
-### Pie 차트 시리즈 옵션
 ### 그 외
 
 #### `chart.width`와 `chart.height` 옵션에 `'auto'` 타입 추가
-`auto`로 설정해주면 `window.resize` 이벤트 리스너가 등록되며, 차트 컨테이너의 크기가 변경되면, 자동으로 컨테이너 크기에 맞춰 다시 렌더링한다.
+`auto`로 설정해주면 `window.resize` 이벤트 리스너가 등록되며, 차트 컨테이너의 크기가 변경되면 자동으로 컨테이너 크기에 맞춰 다시 렌더링한다.
 #### 레이아웃 적용
 플롯, 축, 범례
 
@@ -456,6 +499,7 @@ chart.on('resetZoom', () => {/* */});
 | 차트 타입 | 옵션명 |
 | --- | --- |
 | 모든 차트 | `legend.maxWidth` |
+| Pie 차트 | `series.startAngle`, `series.endAngle`, `series.showLegend`, `series.labelAlign` |
 | Bar, Column 차트 | `series.colorByPoint`, `series.stackType` |
 
 #### 메소드 제거
