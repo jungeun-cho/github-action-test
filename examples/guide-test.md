@@ -9,12 +9,12 @@ TOAST UI Chart(이하 '차트'로 표기)는 4.0 버전에서 `canvas` 기반으
   2. [생성](#2-생성)
   3. [테마](#3-테마)
   4. [툴팁 옵션](#4-툴팁-옵션)
-  5. [축 관련 옵션](#5-축-관련-옵션)
+  5. [축 옵션](#5-축-옵션)
   6. [데이터 라벨 옵션](#6-데이터-라벨-옵션)
   7. [NestedPie 차트(구 Pie&Donut 콤보 차트)](#7-nestedpie-차트구-piedonut-콤보-차트)
   8. [이름 변경](#8-이름-변경)
   9. [실시간 업데이트 개선](#9-실시간-업데이트-개선)
-  10. [`chart.width`와 `chart.height` 옵션에 `'auto'` 타입 추가](#10-실시간-업데이트-개선)
+  10. [`chart.width`와 `chart.height` 옵션에 `'auto'` 타입 추가](#10-chartwidth와-chartheight-옵션에-auto-타입-추가)
   11. [반응형 옵션](#11-반응형-옵션)
   12. [레이아웃 설정](#12-레이아웃-설정)
   13. [Pie 차트 시리즈 옵션 변경](#13-Pie-차트-시리즈-옵션-변경)
@@ -405,7 +405,7 @@ const options = {
 | ColumnLine 차트  | `'grouped'`, `'point'` | `'grouped'` |
 
 
-### 5. 축 관련 옵션
+### 5. 축 옵션
 #### 축 눈금 및 라벨 간격 조절
 3.x 버전에서는 `tickInterval`, `labelInterval` 옵션을 제공했다. `tickInterval`에는 `'auto'`만 입력할 수 있으며 `labelInterval` 옵션으로 라벨 간격만 조절할 수 있었다. 4.0 버전에서는 `tick.interval`, `label.interval`을 통해 라벨과 틱의 간격을 조절할 수 있다. 추가로, 새로운 `scale` 옵션을 지원하고, `scale.min`, `scale.max`, `scale.stepSize` 옵션을 사용해 좀 더 정교하게 축의 눈금과 라벨 간격을 제어할 수 있다.
 
