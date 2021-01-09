@@ -81,7 +81,7 @@ const Chart = require('@toast-ui/chart'); /* CommonJS 방식 */
 import Chart from '@toast-ui/chart'; /* ES6 모듈 방식 */
 ```
 
-또한, 차트 4.0은 필요한 차트 모듈만을 포함시켜 앱을 좀 더 가볍게 만들 수 있게 되었다. 필요한 모듈만을 포함시키는 방법은 아래와 같다.
+또한, 차트 4.0은 필요한 차트 모듈만을 로드하여 앱을 좀 더 가볍게 만들 수 있다. 필요한 모듈만 가져오는 방법은 아래와 같다.
 
 ```js
 import { BarChart } from '@toast-ui/chart'; /* ES6 모듈 방식 */
@@ -107,7 +107,7 @@ const chart = toastui.Chart.barChart({el, data, options});
 
 #### 번들 파일 변경
 
-차트 4.0에서는 기능을 분리하고 의존성을 정리하면서 번들 파일 종류가 변경되었다. 의존성이 사라지면서 의존성이 포함된 번들이 제거 되었으며, 번들 파일명의 프리픽스도 `tui-`에서 `toastui-`로 변경되었다.
+차트 4.0에서는 기능을 분리하고 의존성을 정리하면서 번들 파일 종류가 변경되었다. 의존성이 사라지면서 의존성이 포함된 번들이 제거되었으며, 번들 파일명의 프리픽스도 `tui-`에서 `toastui-`로 변경되었다.
 
 **v3.x**
 
@@ -126,6 +126,7 @@ const chart = toastui.Chart.barChart({el, data, options});
 | 기본 | `toastui-chart.js` | Y |
 | babel-polyfill 포함 | `toastui-chart-polyfill.js` | Y |
 
+<br>
 차트 스타일을 적용할 때 필요한 CSS 파일 정보도 변경되었다.
 
 **v3.x**
@@ -141,7 +142,7 @@ import '@toast-ui/chart/dist/toastui-chart.css';
 ```
 
 
-제공하는 CSS 파일은 위와 같이 `toastui-chart.css`이며, 최소화 버전을 제공한다. npm과 CDN으로 제공되는 파일 종류는 동일하다.
+제공하는 CSS 파일은 위와 같이 `toastui-chart.css`이며 압축 버전을 제공한다. npm과 CDN으로 제공되는 파일 종류는 동일하다.
 
 #### 의존성 정보 변경
 
@@ -228,7 +229,7 @@ const chart = new BarChart({el, data, options});
 NestedPie 차트를 제외한 나머지 콤보 차트는 3.x 버전에서의 데이터와 사용 옵션이 같다. NestedPie 차트는 [NestedPie 차트(구 Pie-Donut 콤보 차트)](#7-nestedpie-차트구-piedonut-콤보-차트) 섹션에서 자세히 설명한다.
 
 ### 3. 테마
-차트 3.x에서는 정적 메서드를 통해 테마를 등록하고 수정할 수 있었다. 차트 4.0에서는 옵션을 통해 테마를 정의하며 `setOptions`을 통해 테마를 변경할 수 있다.
+차트 3.x에서는 정적 메서드를 통해 테마를 등록하고 수정할 수 있었다. 차트 4.0에서는 옵션을 통해 테마를 정의하며 `setOptions`를 통해 테마를 변경할 수 있다. 툴팁과 내보내기 메뉴에 테마를 적용할 수 있으며, 시리즈에서 데이터 라벨 테마도 적용할 수 있다.
 
 **v3.x**
 
@@ -252,9 +253,6 @@ const options = {
 ```
 
 **v4.0**
-
-4.0 버전에서는 툴팁과 내보내기 메뉴에 테마를 적용할 수 있으며, 시리즈에서 데이터 라벨 테마도 적용할 수 있다.
-
 ```js
 const options = {
   ...
@@ -278,17 +276,22 @@ chart.setOptions({
   theme: {
     series: {
       theme: {
-        series: {
-          barWidth: 15,
-          colors: ['#EDAE49', '#D1495B', '#00798C', '#30638E']
-        }
+        chart: {/* 차트 전역 스타일 */},
+        title: {/* 차트 제목 스타일 */},
+        xAxis: {/* X축 스타일 */},
+        yAxis: {/* Y축 스타일 */},
+        plot: {/* 플롯 스타일 */},
+        series: {/* 시리즈 스타일 */},
+        legend: {/* 범례 스타일 */},
+        tooltip: {/* 툴팁 스타일 */},
+        exportMenu: {/* 내보내기 메뉴 스타일 */}
       }
     }
   }
 })
 ```
 
-전역 스타일, 차트 제목, 축, 플롯, 범례, 툴팁, 내보내기 메뉴에 대한 테마는 [공통 컴포넌트 테마](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-theme.md)에서 확인할 수 있으며, 시리즈에 대한 테마는 각 차트 별 가이드에서 확인할 수 있다.
+전역 스타일, 차트 제목, 축, 플롯, 범례, 툴팁, 내보내기 메뉴에 대한 테마는 [공통 컴포넌트 테마](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-theme.md)에서 확인할 수 있으며, 시리즈에 대한 테마는 각 차트별 가이드에서 확인할 수 있다.
 
 * [Bar](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-bar.md#시리즈-theme)
 , [Column](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-column.md#시리즈-theme)
@@ -641,7 +644,7 @@ const data = {
 NestedPie 차트의 자세한 설명은 [NestedPie 차트](https://github.com/nhn/tui.chart/blob/next/docs/ko/chart-nestedPie.md) 가이드를 참고한다.
 
 ### 8. 이름 변경
-동작은 v3.x와 같지만 4.0 버전에서 이름이 변경된 옵션, 메소드, 커스텀 이벤트는 다음과 같다.
+동작은 v3.x와 같지만 4.0 버전에서 이름이 변경된 옵션, 메서드, 커스텀 이벤트는 다음과 같다.
 
 * 옵션
 
@@ -655,7 +658,7 @@ NestedPie 차트의 자세한 설명은 [NestedPie 차트](https://github.com/nh
   | `series.shifting` | `series.shift` | shift 사용 여부 |
   | `chartExportMenu` | `exportMenu` | 내보내기 옵션 |
 
-* 메소드
+* 메서드
 
   | v3.x | v4.0 | 설명 |
   | --- | --- | --- |
@@ -666,12 +669,12 @@ NestedPie 차트의 자세한 설명은 [NestedPie 차트](https://github.com/nh
 
   | v3.x | v4.0 | 설명 |
   | --- | --- | --- |
-  | `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크박스 클릭 시 발생 |
+  | `'changeCheckedLegends'` | `clickLegendCheckbox` | 범례에 체크 박스 클릭 시 발생 |
   | `'selectLegend'` | `clickLegendLabel` | 범례에 라벨 클릭 시 발생 |
 
 ### 9. 실시간 업데이트 개선
 
-3.x 버전에서 `series.shifting: true`와 `addData` 메소드를 사용해 차트 데이터를 업데이트할 수 있었다. 이 기능은 3.x 버전에서 Line과 Area 차트에서만 동작하였다. 4.0 버전에서는 Line과 Area 외에도 Column, Heatmap, LineArea, ColumnLine 차트에서도 사용할 수 있게 되었다. 사용법은 [Live Update](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-liveUpdate-options.md) 가이드를 참고한다.
+3.x 버전에서 `series.shifting: true`와 `addData` 메서드를 사용해 차트 데이터를 업데이트할 수 있었다. 이 기능은 3.x 버전에서 Line과 Area 차트에서만 동작하였다. 4.0 버전에서는 Line과 Area 외에도 Column, Heatmap, LineArea, ColumnLine 차트에서도 사용할 수 있게 되었다. 사용법은 [Live Update](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-liveUpdate-options.md) 가이드를 참고한다.
 
 ### 10. `chart.width`와 `chart.height` 옵션에 `'auto'` 타입 추가
 3.x 버전에서는 `chart.width`와 `chart.height` 옵션을 필수적으로 숫자 값을 입력해 주어야 한다. 4.0 버전에서는 이 옵션을 입력해주지 않으면 컨테이너 크기에 맞춰 차트가 렌더링 된다. 숫자 외 `auto`로 설정해주면 차트 내부적으로 `window.resize` 이벤트 리스너가 등록되며, 차트 컨테이너의 크기가 변경되면 자동으로 컨테이너 크기에 맞춰 다시 렌더링한다.
@@ -700,7 +703,6 @@ const options = {
   }
 };
 ```
-> [v3.x Pie 차트 생성 가이드](https://github.com/nhn/tui.chart/blob/v3.11.2/docs/wiki/chart-types-pie.md)
 
 **v4.0**
 ```js
@@ -729,7 +731,7 @@ const options = {
 
 
 ### 14. 새로운 인스턴스 메서드
-차트 4.0 버전에서는 사용자 편의를 위한 새로운 인스턴스 메소드를 제공한다. 추가된 메소드 목록은 다음과 같다.
+차트 4.0 버전에서는 사용자 편의를 위한 새로운 인스턴스 메서드를 제공한다. 추가된 메서드 목록은 다음과 같다.
 
 ```js
 const chart = new LineChart({ el, data, options });
@@ -742,7 +744,7 @@ chart.showTooltip(/* */);
 chart.hideTooltip();
 ```
 
-| 메소드명 | 설명 | 링크 |
+| 메서드명 | 설명 | 링크 |
 | --- | --- | --- |
 | `addSeries` | 새로운 시리즈를 추가 | [가이드](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-api.md#addseries) |
 | `setOptions` | 차트 옵션 전체 변경 | [가이드](https://github.com/nhn/tui.chart/blob/next/docs/ko/common-api.md#setoptions) |
@@ -782,16 +784,16 @@ chart.on('resetZoom', () => {/* */});
 
 ### 1. Bower 지원 중단
 
-차트 4.0 버전부터는 [Bower](https://bower.io/)를 지원하지 않는다. Bower 지원 중단과 함께 깃헙 리포지터리에서 `production` 브랜치도 제거되었다. 기존에 `production` 브랜치의 `dist` 폴더에서 번들 파일을 직접 가져와 사용했던 경우 주의해야 한다. 노드 환경에서 개발을 권장하나, 이전과 같이 Bower를 사용하던 방식으로 개발하고 싶은 경우 CDN을 사용하면 된다.
+차트 4.0 버전부터는 [Bower](https://bower.io/)를 지원하지 않는다. Bower 지원 중단과 함께 깃헙 저장소에서 `production` 브랜치도 제거되었다. 기존에 `production` 브랜치의 `dist` 폴더에서 번들 파일을 직접 가져와 사용했던 경우 주의해야 한다. 노드 환경에서 개발을 권장하나, 이전과 같이 Bower를 사용하던 방식으로 개발하고 싶은 경우 CDN을 사용하면 된다.
 
 ### 2. 제거된 API 목록
 마지막으로, 차트 4.0 버전에서 제거된 API를 정리한 목록이다.
 
-#### 메소드
-| 타입 | 메소드명 |
+#### 메서드
+| 타입 | 메서드명 |
 | --- | --- |
-| 정적 메소드 | `registerPlugin`, `registerTheme`, `registerMap` |
-| 인스턴스 메소드 |  `setTooltipAlign`, `resetTooltipAlign`, `resetTooltipOffset`, `resetTooltipPosition` |
+| 정적 메서드 | `registerPlugin`, `registerTheme`, `registerMap` |
+| 인스턴스 메서드 |  `setTooltipAlign`, `resetTooltipAlign`, `resetTooltipOffset`, `resetTooltipPosition` |
 
 #### 커스텀 이벤트
 * `afterShowTooltip`, `beforeHideTooltip`, `beforeShowTooltip`
